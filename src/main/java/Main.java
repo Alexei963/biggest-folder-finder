@@ -1,4 +1,8 @@
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.ForkJoinPool;
 
 public class Main {
@@ -11,9 +15,13 @@ public class Main {
     FolderSizeCalculator calculator = new FolderSizeCalculator(root);
     ForkJoinPool pool = new ForkJoinPool();
     pool.invoke(calculator);
-    System.out.println(root);
+    Path fileText = Paths.get("text.txt");
+    try {
+      Files.writeString(fileText, root.toString());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     long duration = System.currentTimeMillis() - start;
     System.out.println("Время выполнения: " + duration);
-
   }
 }

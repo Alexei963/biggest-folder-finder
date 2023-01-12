@@ -61,8 +61,8 @@ public class Node {
         .append("\n");
     for (Node child : children) {
       builder
-          .append("\t")
-          .append(child.toString());
+          .append("\t".repeat(child.getLevel()))
+          .append(child);
     }
     return builder.toString();
   }
